@@ -2,68 +2,6 @@ rm(list = ls())
 incd = read.csv("updated incd.csv")
 death = read.csv("updated death.csv")
 
-#SLR incd
-
-incd_slr1 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
-                 incd$MedianAgebyState, na.action = na.omit)
-incd_slr2 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
-                 incd$CountyPopulation, na.action = na.omit)
-incd_slr3 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
-                 incd$Recent5.YearTrend.à.inIncidenceRates, na.action = na.omit)
-
-summary(incd_slr1)
-summary(incd_slr2)
-summary(incd_slr3)
-
-#SLR death
-
-death_slr1 = lm(death$Age.Adjusted.Death.Rate ~
-                  incd$MedianAgebyState, na.action = na.omit)
-death_slr2 = lm(death$Age.Adjusted.Death.Rate ~
-                  incd$CountyPopulation, na.action = na.omit)
-death_slr3 = lm(death$Age.Adjusted.Death.Rate ~
-                  incd$Recent5.YearTrend.à.inIncidenceRates, na.action = na.omit)
-
-summary(death_slr1)
-summary(death_slr2)
-summary(death_slr3)
-
-#MLR
-Political.Party1<-factor(incd$Political.Party.2020, levels=c("R", "D"))
-incd_mlr = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~ incd$MedianAgebyState +
-                incd$CountyPopulation + Political.Party1 +
-                incd$Recent5.YearTrend.à.inIncidenceRates, na.action = na.omit)
-summary(incd_mlr)
-
-Political.Party1.5<-factor(death$Political.Party.2020, levels=c("R", "D"))
-death_mlr = lm(death$Age.Adjusted.Death.Rate ~ death$Median.Age.by.State +
-                 death$County.Population + Political.Party1.5 + death$X5.Year.Trend,
-               na.action = na.omit)
-summary(death_mlr)
-
-#MLR But with Other Political Party Shown in regression
-Political.Party2<-factor(incd$Political.Party.2020, levels=c("D", "R"))
-incd_mlr2 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~ incd$MedianAgebyState +
-                 incd$CountyPopulation + Political.Party2 +
-                 incd$Recent5.YearTrend.à.inIncidenceRates, na.action = na.omit)
-summary(incd_mlr2)
-
-Political.Party2.5<-factor(death$Political.Party.2020, levels=c("D", "R"))
-death_mlr2 = lm(death$Age.Adjusted.Death.Rate ~ death$Median.Age.by.State +
-                  death$County.Population + Political.Party2.5 + death$X5.Year.Trend,
-                na.action = na.omit)
-summary(death_mlr2)
-
-#Optimize MLR with stepwise selection
-
-library(MASS)
-incd_red = stepAIC(incd_mlr, direction = "both", trace = TRUE)
-summary(incd_red)
-
-death_red = stepAIC(death_mlr, direction = "both", trace = TRUE)
-summary(death_red)
-
-
 #Plots of States
 install.packages('ggplot2')
 library(ggplot2)
