@@ -1,7 +1,7 @@
-#STAT3340:Final_Project (Patrick, Jeff, Megan)
-#Fall 2020 - Dalhousie University 
-
-#Packages and Libraries 
+---
+title: "STAT3340_FinalProject"
+output: html_document
+---
 install.packages('ggplot2')
 install.packages('outliers')
 install.packages('EnvStats')
@@ -109,7 +109,7 @@ incd_slr1 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
 incd_slr2 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
                  incd$CountyPopulation, na.action = na.omit)
 incd_slr3 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
-                 incd$Recent5.YearTrend.à.inIncidenceRates, na.action = na.omit)
+                 incd$Recent5.YearTrend.Ã .inIncidenceRates, na.action = na.omit)
 incd_slr4 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
                  incd$Political.Party.2020)
 
@@ -143,7 +143,7 @@ summary(death_slr4)
 Political.Party1<-factor(incd$Political.Party.2020, levels=c("R", "D"))
 incd_mlr = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~ incd$MedianAgebyState +
                 incd$CountyPopulation + Political.Party1 +
-                incd$Recent5.YearTrend.à.inIncidenceRates, na.action = na.omit)
+                incd$Recent5.YearTrend.Ã .inIncidenceRates, na.action = na.omit)
 summary(incd_mlr)
 
 Political.Party1.5<-factor(death$Political.Party.2020, levels=c("R", "D"))
@@ -157,7 +157,7 @@ summary(death_mlr)
 Political.Party2<-factor(incd$Political.Party.2020, levels=c("D", "R"))
 incd_mlr2 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~ incd$MedianAgebyState +
                  incd$CountyPopulation + Political.Party2 +
-                 incd$Recent5.YearTrend.à.inIncidenceRates, na.action = na.omit)
+                 incd$Recent5.YearTrend.Ã .inIncidenceRates, na.action = na.omit)
 summary(incd_mlr2)
 
 Political.Party2.5<-factor(death$Political.Party.2020, levels=c("D", "R"))
@@ -198,7 +198,7 @@ summary(incd_red3)
 
 incd_red4 = lm(incd$Age.AdjustedIncidenceRate...casesper100.000 ~
                  incd$MedianAgebyState + incd$Political.Party.2020 +
-                 incd$CountyPopulation + incd$Recent5.YearTrend.à.inIncidenceRates,
+                 incd$CountyPopulation + incd$Recent5.YearTrend.Ã .inIncidenceRates,
                na.action = na.omit)
 summary(incd_red4)
 
@@ -250,7 +250,7 @@ outlier_test<-grubbs.test(data_alabama$Age.Adjusted.Death.Rate)
 
 #ii) Rosner's Test:
 
-outlier_test2<-rosnerTest(data_alabama$Age.Adjusted.Death.Rate, k=1)
+outlier_test2<-rosnerTest(data_alabama$Age.Adjusted.Death.Rate, k=2)
 
 #Both Tests identify Patmeff County as outlier
 
